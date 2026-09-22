@@ -14,7 +14,7 @@ state OBSOLETE
 OPEN --> IN_PROGRESS : (A) Action Entry \n [Action taken to address the observation]
 OPEN --> OBSOLETE : (R) Result Entry \n [Assset deleted / False positive]
 IN_PROGRESS --> RESOLVED : (R) Result Entry \n [Outcome of the action recorded]
-IN_PROGRESS --> OBSOLETE : (R) Result Entry \n [Action deemed irrelevant or unnecessary]
+IN_PROGRESS --> OBSOLETE : (R) Result Entry \n [Business rule change / Asset deleted]
 RESOLVED --> [*]
 OBSOLETE --> [*]
 
