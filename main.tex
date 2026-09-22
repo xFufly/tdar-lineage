@@ -1,64 +1,107 @@
-\documentclass{article}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[american]{babel}
+\usepackage[margin=2cm]{geometry}
 \usepackage{tikz}
 \usepackage{standalone}
-\usepackage{parskip}
-\usepackage{float}
+\usepackage{amsmath,amssymb}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{hyperref}
 
-\lstset{
-    basicstyle=\small\ttfamily,
-    string=[s]{"}{"},
-    stringstyle=\color{blue},
-    comment=[l]{:},
-    commentstyle=\color{black},
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue!75!black,
+    urlcolor=blue!75!black
 }
 
-\title{Architecting for Action: \\ \large Data Lineage and Analysis via the T-DAR Framework}
-\author{Tim Didelot \\ \texttt{contact@timdidelot.fr}}
-\date{\today}
+% Police TikZ nette et adaptée aux boîtes PlantUML
+\tikzset{every node/.append style={font=\footnotesize\sffamily}}
+
+\definecolor{codebg}{rgb}{0.97,0.97,0.97}
+\definecolor{codeblue}{rgb}{0.1,0.2,0.7}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{codegreen}{rgb}{0.1,0.5,0.2}
+
+\lstset{
+    backgroundcolor=\color{codebg},
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    breakatwhitespace=false,
+    captionpos=b,
+    commentstyle=\color{codegray},
+    frame=single,
+    rulecolor=\color{black!15},
+    keepspaces=true,
+    keywordstyle=\bfseries\color{codeblue},
+    stringstyle=\color{codegreen},
+    showstringspaces=false,
+    tabsize=2,
+    aboveskip=0.4em,
+    belowskip=0.4em
+}
+
+\lstdefinelanguage{JSON}{
+    basicstyle=\footnotesize\ttfamily,
+    string=[s]{"}{"},
+    stringstyle=\color{codeblue},
+    comment=[l]{:},
+    commentstyle=\color{black}
+}
+
+\title{\LARGE\textbf{Architecting for Action:} \\ \Large Data Lineage and Analysis via the T-DAR Framework}
+\author{\textbf{Tim Didelot} \\ \texttt{contact@timdidelot.fr}}
+\date{September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
 \noindent
-Data lineage is a critical aspect of modern data management, providing insights into the flow and transformation of data across complex ecosystems. This paper introduces the T-DAR framework, a novel approach to analyzing data lineage that emphasizes the relationship between targeted observations, data assets, and actionable results. By leveraging the T-DAR framework, organizations can enhance their understanding of data processes, improve decision-making, and ensure compliance with regulatory requirements.
+Data lineage is a critical aspect of modern data management, providing insights into the flow and transformation of data across complex ecosystems. This paper introduces the T-DAR framework, a dynamic approach to analyzing data lineage that emphasizes the relationship between targeted observations, data assets, and actionable results. By leveraging the T-DAR framework, organizations can enhance their understanding of data processes, improve decision-making, and ensure compliance with regulatory requirements.
 \end{abstract}
 
 \section{Introduction}
-In the era of Big Data, organizations have adopted a data-driven approach to decision-making. However, the complexity of data ecosystems often leads to challenges in understanding the flow and transformation of data. This paper introduces the \textbf{T-DAR framework}, which stands for Targeted Data-Actions-Results, as a methodology for analyzing data lineage and ensuring actionable insights. The T-DAR framework provides a structured approach to capturing and analyzing the relationships between data assets, the actions taken on them, and the resulting outcomes. By focusing on targeted observations, organizations can gain a deeper understanding of their data processes and make informed decisions based on actionable insights.
+In the era of Big Data, organizations have adopted a data-driven approach to decision-making. However, the complexity of data ecosystems often leads to challenges in understanding the flow and transformation of data \cite{syed2020}. This paper introduces the \textbf{T-DAR framework}, which stands for Targeted Data-Actions-Results, as a methodology for analyzing data lineage and ensuring actionable insights. 
+
+The T-DAR framework provides a structured approach to capturing and analyzing the relationships between data assets, the actions taken on them, and the resulting outcomes. By focusing on targeted observations, organizations can gain a deeper understanding of their data processes and make informed decisions based on actionable insights.
 
 \section{T-DAR Framework Overview}
-The T-DAR framework is inspired by the Data-Action-Result (DAR) model of most healthcare information systems.
-\begin{figure}[H]
+The T-DAR framework is inspired by the Data-Action-Response (DAR) model of most healthcare information systems \cite{portableRN2007}.
+
+\subsection{Architecture}
+As illustrated in Figure \ref{fig:tdar_architecture}, the architecture of the T-DAR framework is centered around a \textit{Targeted Observation}, which is directly linked to a specific \textit{Data Asset} within the ecosystem. Rather than treating data lineage as a static representation of data streams, the T-DAR framework takes advantage of the dynamic nature of data environments, allowing for real-time analysis and decision-making. It provides a way to analyse not only results, but also the medium through which the results are obtained, and the actions that lead to those results.
+
+\begin{figure}[!ht]
     \centering
-    \resizebox{0.8\textwidth}{!}{
-        \makebox[\textwidth][c]{
-            \input{out/uml/tdar_architecture/tdar_architecture.latex}
-        }
+    \makebox[\textwidth][c]{%
+        \adjustbox{max width=1.15\textwidth}{%
+            \input{out/uml/tdar_architecture/tdar_architecture.latex}%
+        }%
     }
     \caption{T-DAR Architecture Overview}
     \label{fig:tdar_architecture}
 \end{figure}
 
-As illustrated in Figure \ref{fig:tdar_architecture}, the architecture of the T-DAR framework is centered around a \textit{Targeted Observation}, which is directly linked to a specific \textit{Data Asset} within the ecosystem. Rather than treating data lineage as a static representation of data streams, the T-DAR framework takes advantage of the dynamic nature of data environments, allowing for real-time analysis and decision-making. It provides a way to analyse not only results, but also the medium through which the results are obtained, and the actions that lead to those results.
-
-To operationalize this dynamic analysis, every \textit{Targeted Observation} acts as a container for a chronological sequence of \textit{DAREntry} records. These entries are categorized into three distinct phases: \textit{Data}, \textit{Action}, and \textit{Result}, which together form the foundation of the framework:
+To operationalize this dynamic analysis, every \textit{Targeted Observation} acts as a container for a chronological sequence of \textit{DAREntry} records. These entries are categorized into three distinct phases:
 \begin{itemize}
     \item \textbf{Data (D) -- The Assessment:} A Data entry represents a factual snapshot, an audit trail, or a metric collected from the \textit{Data Asset}.
     \item \textbf{Action (A) -- The Intervention:} An Action entry represents a specific action taken in response to the data or the results of the data.
     \item \textbf{Result (R) -- The Outcome:} A Result entry represents the outcome or consequence of the preceding action taken.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
-    \resizebox{0.62\textwidth}{!}{
-        \makebox[\textwidth][c]{
-            \input{out/uml/tdar_state/tdar_state.latex}
-        }
+    \makebox[\textwidth][c]{%
+        \adjustbox{max width=0.85\textwidth}{%
+            \input{out/uml/tdar_state/tdar_state.latex}%
+        }%
     }
     \caption{T-DAR State Diagram}
     \label{fig:tdar_state}
@@ -66,51 +109,126 @@ To operationalize this dynamic analysis, every \textit{Targeted Observation} act
 
 As shown in Figure \ref{fig:tdar_state}, these DAR entries act as triggers that drive the lifecycle of a \textit{Targeted Observation}, transitioning it from an initial open state to a final resolution.
 
-Furthermore, since data assets are inherently interconnected through a \texttt{derived\allowbreak\_from} lineage relationship (as modeled in the framework architecture), the T-DAR framework allows organizations to track how an \textit{Action} applied to an upstream asset propagates its \textit{Results} to downstream dependencies. This elevates traditional data lineage from a simple dependency graph to an actionable governance tool.
+Furthermore, since data assets are inherently interconnected through a \nolinkurl{derived_from} lineage relationship, the T-DAR framework allows organizations to track how an \textit{Action} applied to an upstream asset propagates its \textit{Results} to downstream dependencies. This elevates traditional data lineage from a simple dependency graph to an actionable governance tool.
+
+\subsection{Handling Fine-Grained Lineage}
+A critical strength of the T-DAR framework is its ability to manage complex, fine-grained lineage. While traditional models often stop at the table or system level, a \textit{Data Asset} in T-DAR operates as a polymorphic entity. It can represent a macro-level database, a micro-level column, or even a processing function. 
+
+Consequently, an observation simply references a granular identifier, such as \nolinkurl{urn:asset:silver:transactions:transaction_amount}, without altering its own generic data model. This precision ensures that downstream impact analysis is exact, allowing data teams to isolate and resolve granular issues without invalidating or locking entire tables.
+
+\subsection{Core Data Model}
+To establish rigorous guarantees on data consistency, T-DAR relies on a structured data model. The system operates over a dependency graph where each asset exposes its downstream impact.
+
+\paragraph{Core Data Structures.}
+The framework is built on two primary objects: the \texttt{DAREntry} and the \texttt{TargetedObservation}.
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Java]
+struct DAREntry {
+    UUID id;
+    EntryType entryType;  // DATA, ACTION, or RESULT
+    Timestamp timestamp;  // Event execution time
+    String agentId;       // Human or AI agent identifier
+    JSON payload;         // Contextual data and metrics
+}
+
+class TargetedObservation {
+    UUID id;
+    String dataAssetId;   // URI of the targeted data asset
+    String targetType;    // e.g., DATA_QUALITY, SECURITY
+    TargetStatus status;  // OPEN, IN_PROGRESS, RESOLVED, OBSOLETE
+    List<DAREntry> log;   // Chronological history of events
+}
+\end{lstlisting}
+\end{minipage}
+
+\paragraph{State Machine Lifecycle.}
+The lifecycle of an observation is governed by a deterministic state machine:
+\begin{align*}
+    \text{NULL} + \text{DATA} &\longrightarrow \text{OPEN} \\
+    \text{OPEN} + \text{ACTION} &\longrightarrow \text{IN\_PROGRESS} \\
+    \text{OPEN} + \text{RESULT} &\longrightarrow \text{OBSOLETE} \\
+    \text{IN\_PROGRESS} + \text{RESULT} &\longrightarrow \text{RESOLVED}
+\end{align*}
+Any transition not explicitly covered by this state machine throws an exception, guaranteeing that no corrective action can be recorded without prior anomaly detection.
 
 \section{Case Study: Applying T-DAR to a Medallion Architecture}
+To demonstrate practical value, we evaluate the framework within a standard medallion architecture pipeline \cite{databricks_medallion}, structured into Bronze (Raw), Silver (Cleaned), and Gold (Aggregated) layers[cite: 1].
 
-To demonstrate the practical value of the T-DAR framework, we consider a typical data engineering pipeline organized in a medallion architecture, which consists of three layers: \textit{Bronze} (Raw), \textit{Silver} (Cleaned), and \textit{Gold} (Aggregated).
-
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
-    \resizebox{0.65\textwidth}{!}{
-        \makebox[\textwidth][c]{
-            \input{out/uml/tdar_case_study/tdar_case_study.latex}
-        }
+    \makebox[\textwidth][c]{%
+        \adjustbox{max width=1.18\textwidth}{%
+            \input{out/uml/tdar_case_study/tdar_case_study.latex}%
+        }%
     }
     \caption{T-DAR Applied to a Medallion Architecture}
     \label{fig:tdar_case_study}
 \end{figure}
 
-As depicted in Figure \ref{fig:tdar_case_study}, the framework provides end-to-end traceability when a data quality issue occurs. In this scenario, an AI agent (\textit{Agent\_1}) detects that 5\% of the transaction amounts are missing in the \textit{Silver} layer. This event triggers the creation of a \textit{Targeted Observation} along with a \textit{Data Entry} that records the issue.
-
-Because the system explicitly records the \texttt{derived\_from} lineage, data stewards immediately know that the downstream \textit{Gold} layer is also affected by this anomaly. Subsequently, a human data engineer (\textit{Agent\_2}) is assigned to address the issue. The engineer applies an imputation strategy to fill in the missing values, which is recorded as an \textit{Action Entry}. Finally, a \textit{Result Entry} captures the outcome of this intervention, confirming that the data quality issue has been resolved.
+As depicted in Figure \ref{fig:tdar_case_study}, the framework provides end-to-end traceability when an anomaly occurs:
+\begin{enumerate}
+    \item An automated agent (\textit{Agent\_1}) detects that 5\% of values are missing in the Silver layer and initializes a \textit{Targeted Observation} with a \texttt{DATA} entry[cite: 1].
+    \item Upstream-downstream lineage identification instantly warns stewards of propagation risks toward the Gold layer[cite: 1].
+    \item A data engineer (\textit{Agent\_2}) executes an imputation pipeline, appended as an \texttt{ACTION} entry[cite: 1].
+    \item Automated validation runs and records a \texttt{RESULT} entry confirming 0\% missing values, marking the observation as \texttt{RESOLVED}[cite: 1].
+\end{enumerate}
 
 \subsection{Implementation Example: T-DAR API Payload}
+Listing \ref{lst:json_payload} illustrates the JSON payload dispatched by the automated monitoring agent to register the incident[cite: 1].
 
-To illustrate how the framework integrates with modern data stacks, the following listing provides an example of the JSON payload generated by the automated AI agent (\textit{Agent\_1}) to initialize the observation on the \textit{Silver} layer. This standard structure allows data engineering tools to seamlessly push governance metadata into the T-DAR system.
-
-\noindent
-\begin{minipage}{\textwidth}
-\begin{lstlisting}[frame=single, caption={JSON payload for creating a Data Entry}]
+\begin{figure}[!ht]
+\begin{lstlisting}[language=JSON]
 {
-    "observation_id": "obs-1",
-    "target_type": "DATA_QUALITY",
-    "data_asset_id": "asset-silver-db",
-    "status": "OPEN",
-    "dar_entry": {
+  "observation_id": "obs-1",
+  "target_type": "DATA_QUALITY",
+  "data_asset_id": "urn:silver:tx:amount",
+  "status": "OPEN",
+  "dar_entry": {
     "entry_type": "DATA",
     "agent_id": "ai-checker-bot",
     "timestamp": "2026-09-22T10:00:00+02:00",
-        "payload": {
-            "metric": "null_values_percentage",
-            "value": 0.05,
-            "message": "5% of transaction amounts are NULL"
-        }
+    "payload": {
+      "metric": "null_values_percentage",
+      "value": 0.05,
+      "message": "5% of transaction amounts are NULL",
+      "pipeline_run_id": "run-202609221000-0001"
     }
+  }
 }
 \end{lstlisting}
-\end{minipage}
+\caption{Payload registering an initial Data Entry.}
+\label{lst:json_payload}
+\end{figure}
+
+\section{Related Work}
+Data lineage specifications such as OpenLineage \cite{openlineage} standardize passive metadata collection across pipeline runs. OpenLineage focuses on capturing job executions, inputs, and outputs to maintain dependency graphs. Observability tools build on this by alerting on data degradation.
+
+However, existing frameworks primarily address anomaly detection (the \textit{Data} phase) without tracking downstream interventions (\textit{Action} and \textit{Result}). T-DAR is designed to complement existing platforms: by running on top of OpenLineage dependency graphs, it connects operational alerts directly to remediation histories.
+
+\section{Conclusion and Broader Applications}
+This paper introduced the T-DAR framework, a structured architectural pattern that bridges the gap between static data lineage and active governance. By encapsulating issues within Targeted Observations and tracing the lifecycle through Data, Action, and Result (D-A-R) entries, organizations gain an immutable and actionable audit trail of their ecosystems.
+
+While the primary case study focused on data quality in a medallion architecture, the T-DAR framework is fundamentally domain-agnostic:
+\begin{itemize}
+    \item \textbf{Marketing and Campaign Tracking:} Documenting marketing initiatives where observations target specific demographics, trace campaign execution, and measure conversion ROI.
+    \item \textbf{Hybrid Automated Controls:} Facilitating AI-driven anomaly detection combined with explicit human engineer approval workflows.
+    \item \textbf{Universal Process Security:} Securing and auditing operational processes to ensure total accountability regarding who performed an intervention, why it was triggered, and what the final outcome was.
+\end{itemize}
+
+\begin{thebibliography}{4}
+\bibitem{syed2020} 
+S. Syed and R. C. R. Nampalli, ``Data Lineage Strategies -- A Modernized View,'' \textit{Educational Administration: Theory and Practice}, vol. 26, no. 4, pp. 965--973, 2020.
+
+\bibitem{portableRN2007}
+Lippincott Williams \& Wilkins, \textit{Portable RN: The All-in-One Nursing Reference}, 3rd ed., Lippincott Williams \& Wilkins, 2007, p. 678.
+
+\bibitem{databricks_medallion}
+Databricks, ``What is a Medallion Architecture?,'' \textit{Databricks Glossary}, 2026.
+
+\bibitem{openlineage}
+LF AI \& Data Foundation, ``OpenLineage: An Open Standard for Data Lineage,'' \url{https://openlineage.io}, 2026.
+\end{thebibliography}
 
 \end{document}

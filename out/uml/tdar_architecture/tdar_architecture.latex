@@ -103,7 +103,7 @@
 \draw[pstyle4] (281.89pt,473.7485pt) ellipse (3pt and 3pt);
 \node at (288.89pt,466.499pt)[below right,color=black]{entryType: EntryType};
 \draw[pstyle4] (281.89pt,485.2476pt) ellipse (3pt and 3pt);
-\node at (288.89pt,477.998pt)[below right,color=black]{payload: String};
+\node at (288.89pt,477.998pt)[below right,color=black]{payload: JSON};
 \draw[pstyle4] (281.89pt,496.7466pt) ellipse (3pt and 3pt);
 \node at (288.89pt,489.4971pt)[below right,color=black]{timestamp: Timestamp};
 \draw[pstyle2] (271.89pt,504.9961pt) -- (401.1029pt,504.9961pt);

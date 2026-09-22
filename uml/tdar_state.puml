@@ -12,7 +12,7 @@ state OBSOLETE
 
 [*] --> OPEN : (D) Data Entry \n [Anomaly or Metric recorded]
 OPEN --> IN_PROGRESS : (A) Action Entry \n [Action taken to address the observation]
-OPEN --> OBSOLETE : (R) Result Entry \n [Assset deleted / False positive]
+OPEN --> OBSOLETE : (R) Result Entry \n [Asset deleted / False positive]
 IN_PROGRESS --> RESOLVED : (R) Result Entry \n [Outcome of the action recorded]
 IN_PROGRESS --> OBSOLETE : (R) Result Entry \n [Business rule change / Asset deleted]
 RESOLVED --> [*]
