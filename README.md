@@ -14,6 +14,11 @@ The framework relies on two primary entities:
   - **Result (R)**: The outcome or consequence of the action.
 - **Targeted Observation**: A stateful container that groups DAREntries into a chronological sequence, strictly bound to a specific polymorphic Data Asset (ranging from a database to a single column).
 
+## PDF Export
+
+Download the compiled PDF of the paper from the following link:
+[Architecting for Action: Data Lineage and Analysis via the T-DAR Framework](https://github.com/xFufly/tdar-lineage/releases/latest)
+
 ## Repository Structure
 
 - `main.tex`: The main LaTeX source file of the paper.

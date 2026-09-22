@@ -21,7 +21,6 @@
     urlcolor=blue!75!black
 }
 
-% Police TikZ nette et adaptée aux boîtes PlantUML
 \tikzset{every node/.append style={font=\footnotesize\sffamily}}
 
 \definecolor{codebg}{rgb}{0.97,0.97,0.97}
@@ -78,7 +77,7 @@ The T-DAR framework is inspired by the Data-Action-Response (DAR) model of most 
 \subsection{Architecture}
 As illustrated in Figure \ref{fig:tdar_architecture}, the architecture of the T-DAR framework is centered around a \textit{Targeted Observation}, which is directly linked to a specific \textit{Data Asset} within the ecosystem. Rather than treating data lineage as a static representation of data streams, the T-DAR framework takes advantage of the dynamic nature of data environments, allowing for real-time analysis and decision-making. It provides a way to analyse not only results, but also the medium through which the results are obtained, and the actions that lead to those results.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \makebox[\textwidth][c]{%
         \adjustbox{max width=1.15\textwidth}{%
@@ -96,7 +95,7 @@ To operationalize this dynamic analysis, every \textit{Targeted Observation} act
     \item \textbf{Result (R) -- The Outcome:} A Result entry represents the outcome or consequence of the preceding action taken.
 \end{itemize}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \makebox[\textwidth][c]{%
         \adjustbox{max width=0.85\textwidth}{%
@@ -154,9 +153,9 @@ The lifecycle of an observation is governed by a deterministic state machine:
 Any transition not explicitly covered by this state machine throws an exception, guaranteeing that no corrective action can be recorded without prior anomaly detection.
 
 \section{Case Study: Applying T-DAR to a Medallion Architecture}
-To demonstrate practical value, we evaluate the framework within a standard medallion architecture pipeline \cite{databricks_medallion}, structured into Bronze (Raw), Silver (Cleaned), and Gold (Aggregated) layers[cite: 1].
+To demonstrate practical value, we evaluate the framework within a standard medallion architecture pipeline \cite{databricks_medallion}, structured into Bronze (Raw), Silver (Cleaned), and Gold (Aggregated) layers.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \makebox[\textwidth][c]{%
         \adjustbox{max width=1.18\textwidth}{%
@@ -169,16 +168,16 @@ To demonstrate practical value, we evaluate the framework within a standard meda
 
 As depicted in Figure \ref{fig:tdar_case_study}, the framework provides end-to-end traceability when an anomaly occurs:
 \begin{enumerate}
-    \item An automated agent (\textit{Agent\_1}) detects that 5\% of values are missing in the Silver layer and initializes a \textit{Targeted Observation} with a \texttt{DATA} entry[cite: 1].
-    \item Upstream-downstream lineage identification instantly warns stewards of propagation risks toward the Gold layer[cite: 1].
-    \item A data engineer (\textit{Agent\_2}) executes an imputation pipeline, appended as an \texttt{ACTION} entry[cite: 1].
-    \item Automated validation runs and records a \texttt{RESULT} entry confirming 0\% missing values, marking the observation as \texttt{RESOLVED}[cite: 1].
+    \item An automated agent (\textit{Agent\_1}) detects that 5\% of values are missing in the Silver layer and initializes a \textit{Targeted Observation} with a \texttt{DATA} entry.
+    \item Upstream-downstream lineage identification instantly warns stewards of propagation risks toward the Gold layer.
+    \item A data engineer (\textit{Agent\_2}) executes an imputation pipeline, appended as an \texttt{ACTION} entry.
+    \item Automated validation runs and records a \texttt{RESULT} entry confirming 0\% missing values, marking the observation as \texttt{RESOLVED}.
 \end{enumerate}
 
 \subsection{Implementation Example: T-DAR API Payload}
-Listing \ref{lst:json_payload} illustrates the JSON payload dispatched by the automated monitoring agent to register the incident[cite: 1].
+Listing \ref{lst:json_payload} illustrates the JSON payload dispatched by the automated monitoring agent to register the incident.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \begin{lstlisting}[language=JSON]
 {
   "observation_id": "obs-1",
@@ -216,6 +215,9 @@ While the primary case study focused on data quality in a medallion architecture
     \item \textbf{Hybrid Automated Controls:} Facilitating AI-driven anomaly detection combined with explicit human engineer approval workflows.
     \item \textbf{Universal Process Security:} Securing and auditing operational processes to ensure total accountability regarding who performed an intervention, why it was triggered, and what the final outcome was.
 \end{itemize}
+
+\section*{License}
+This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 \begin{thebibliography}{4}
 \bibitem{syed2020} 
