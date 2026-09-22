@@ -1,0 +1,21 @@
+@startuml tdar_state
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 10
+
+state OPEN
+state IN_PROGRESS
+state RESOLVED
+state OBSOLETE
+
+[*] --> OPEN : (D) Data Entry \n [Anomaly or Metric recorded]
+OPEN --> IN_PROGRESS : (A) Action Entry \n [Action taken to address the observation]
+OPEN --> OBSOLETE : (R) Result Entry \n [Assset deleted / False positive]
+IN_PROGRESS --> RESOLVED : (R) Result Entry \n [Outcome of the action recorded]
+IN_PROGRESS --> OBSOLETE : (R) Result Entry \n [Action deemed irrelevant or unnecessary]
+RESOLVED --> [*]
+OBSOLETE --> [*]
+
+@enduml

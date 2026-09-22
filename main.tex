@@ -24,7 +24,7 @@ In the era of Big Data, organizations have adopted a data-driven approach to dec
 The T-DAR framework is inspired by the Data-Action-Result (DAR) model of most healthcare information systems.
 \begin{figure}[H]
     \centering
-    \resizebox{0.85\textwidth}{!}{
+    \resizebox{0.8\textwidth}{!}{
         \makebox[\textwidth][c]{
             \input{out/uml/tdar_architecture/tdar_architecture.latex}
         }
@@ -41,6 +41,19 @@ To operationalize this dynamic analysis, every \textit{Targeted Observation} act
     \item \textbf{Action (A) -- The Intervention:} An Action entry represents a specific action taken in response to the data or the results of the data.
     \item \textbf{Result (R) -- The Outcome:} A Result entry represents the outcome or consequence of the preceding action taken.
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.62\textwidth}{!}{
+        \makebox[\textwidth][c]{
+            \input{out/uml/tdar_state/tdar_state.latex}
+        }
+    }
+    \caption{T-DAR State Diagram}
+    \label{fig:tdar_state}
+\end{figure}
+
+As shown in Figure \ref{fig:tdar_state}, these DAR entries act as triggers that drive the lifecycle of a \textit{Targeted Observation}, transitioning it from an initial open state to a final resolution.
 
 Furthermore, since data assets are inherently interconnected through a \texttt{derived\allowbreak\_from} lineage relationship (as modeled in the framework architecture), the T-DAR framework allows organizations to track how an \textit{Action} applied to an upstream asset propagates its \textit{Results} to downstream dependencies. This elevates traditional data lineage from a simple dependency graph to an actionable governance tool.
 
