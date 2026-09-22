@@ -3,6 +3,8 @@
 \usepackage[american]{babel}
 \usepackage{tikz}
 \usepackage{standalone}
+\usepackage{parskip}
+\usepackage{float}
 \title{Architecting for Action: \\ \large Data Lineage and Analysis via the T-DAR Framework}
 \author{Tim Didelot \\ \texttt{contact@timdidelot.fr}}
 \date{\today}
@@ -10,17 +12,34 @@
 \begin{document}
 \maketitle
 
+\begin{abstract}
+\noindent
+Data lineage is a critical aspect of modern data management, providing insights into the flow and transformation of data across complex ecosystems. This paper introduces the T-DAR framework, a novel approach to analyzing data lineage that emphasizes the relationship between targeted observations, data assets, and actionable results. By leveraging the T-DAR framework, organizations can enhance their understanding of data processes, improve decision-making, and ensure compliance with regulatory requirements.
+\end{abstract}
+
 \section{Introduction}
 In the era of Big Data, organizations have adopted a data-driven approach to decision-making. However, the complexity of data ecosystems often leads to challenges in understanding the flow and transformation of data. This paper introduces the T-DAR framework, which stands for Targeted Data-Actions-Results, as a methodology for analyzing data lineage and ensuring actionable insights.
 
 \section{T-DAR Framework Overview}
 The T-DAR framework is inspired by the Data-Action-Result (DAR) model of most healthcare information systems.
-\begin{figure}[htbp]
-    \makebox[\textwidth][c]{
-        \input{out/uml/tdar_architecture/tdar_architecture.latex}
+\begin{figure}[H]
+    \centering
+    \resizebox{0.85\textwidth}{!}{
+        \makebox[\textwidth][c]{
+            \input{out/uml/tdar_architecture/tdar_architecture.latex}
+        }
     }
     \caption{T-DAR Architecture Overview}
     \label{fig:tdar_architecture}
 \end{figure}
+
+As illustrated in Figure \ref{fig:tdar_architecture}, the architecture of the T-DAR framework is centered around a \textit{Targeted Observation}, which is directly linked to a specific \textit{Data Asset} within the ecosystem. Rather than treating data lineage as a static representation of data streams, the T-DAR framework takes advantage of the dynamic nature of data environments, allowing for real-time analysis and decision-making. It provides a way to analyse not only results, but also the medium through which the results are obtained, and the actions that lead to those results.
+
+To operationalize this dynamic analysis, every \textit{Trgeted Observation} acts as a container for a chronological sequence of \textit{DAREntry} records. These entries are categorized into three distinct phases: \textit{Data}, \textit{Action}, and \textit{Result}, which together from the foundation of the framework:
+\begin{itemize}
+    \item \textbf{Data (D) -- The Assessment:} A Data entry represents a factual snapshot, an audit trail, or a metric collected from the \textit{Data Asset}.
+    \item \textbf{Action (A) -- The Intervention:} An Action entry represents a specific action taken in response to the data or the results of the data.
+    \item \textbf{Result (R) -- The Outcome:} A Result entry represents the outcome or consequence of the preceding action taken.
+\end{itemize}
 
 \end{document}

@@ -5,6 +5,8 @@ skinparam shadowing false
 skinparam defaultFontName "Arial"
 skinparam defaultFontSize 10
 
+left to right direction
+
 enum TargetCategory {
     COMPLIANCE
     BUSINESS_KPI
@@ -51,7 +53,7 @@ class TargetedObservation {
 class DAREntry {
     +id: UUID
     +entryType: EntryType
-    +payload: JSON / String
+    +payload: String
     +timestamp: Timestamp
 }
 
@@ -61,9 +63,15 @@ class Agent {
     +type: String
 }
 
-DataAsset "1" *-- "*" TargetedObservation : observes
+DataAsset "*" <-- "*" DataAsset : derived_from
+
+TargetedObservation "*" --> "1" DataAsset : observes
 TargetedObservation "*" --> "1" TargetType : categorized_by
 TargetedObservation "1" *-- "1..*" DAREntry : contains
 DAREntry "*" --> "1" Agent : recorded_by
+
+TargetType ..> TargetCategory : uses
+TargetedObservation ..> TargetStatus : uses
+DAREntry ..> EntryType : uses
 
 @enduml
