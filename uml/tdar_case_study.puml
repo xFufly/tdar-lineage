@@ -1,0 +1,74 @@
+@startuml tdar_case_study
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 10
+
+left to right direction
+
+object "Data_Asset_1 : DataAsset" as raw {
+    name = "Raw_Transaction_DB"
+    layer = "Bronze"
+}
+
+object "Data_Asset_2 : DataAsset" as clean {
+    name = "Cleaned_Transaction_DB"
+    layer = "Silver"
+}
+
+object "Data_Asset_3 : DataAsset" as agg {
+    name = "Aggregated_Transaction_DB"
+    layer = "Gold"
+}
+
+object "Observation_1 : TargetedObservation" as obs {
+    status = IN_PROGRESS
+    severity = "HIGH"
+}
+
+object "Type : TargetType" as type {
+    category = "DATA_QUALITY"
+    label = "Missing_Values_Check"
+}
+
+object "Data_Entry : DAREntry" as data_entry {
+    entryType = DATA
+    payload = "5% of transaction amounts are NULL"
+}
+
+object "Action_Entry : DAREntry" as action_entry {
+    entryType = ACTION
+    payload = "Applied imputation to fill missing values"
+}
+
+object "Result_Entry : DAREntry" as result_entry {
+    entryType = RESULT
+    payload = "0% NULL values detected."
+}
+
+object "Agent_1 : Agent" as agent1 {
+    name = "Data_Quality_Checker"
+    type = "AI"
+}
+
+object "Agent_2 : Agent" as agent2 {
+    name = "Data_Engineer_1"
+    type = "HUMAN"
+}
+
+raw <-right- clean : derived_from
+clean <-right- agg : derived_from
+
+clean <-up- obs : observes
+obs -right-> type : categorized_by
+
+obs *-down- data_entry : contains
+obs *-down- action_entry : contains
+obs *-down- result_entry : contains
+
+data_entry -down-> agent1 : recorded_by
+action_entry -down-> agent2 : recorded_by
+result_entry -down-> agent1 : recorded_by
+
+@enduml
