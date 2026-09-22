@@ -39,5 +39,8 @@
 *.swp
 *.bak
 
+# Other work examples
+inspiration
+
 # Final compiled PDF
 # *.pdf

@@ -1,0 +1,69 @@
+@startuml tdar_architecture
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 10
+
+enum TargetCategory {
+    COMPLIANCE
+    BUSINESS_KPI
+    SYSTEM_PERFORMANCE
+    SECURITY
+    DATA_QUALITY
+}
+
+enum EntryType {
+    DATA
+    ACTION
+    RESULT
+}
+
+enum TargetStatus {
+    OPEN
+    IN_PROGRESS
+    RESOLVED
+    OBSOLETE
+}
+
+class DataAsset {
+    +id: UUID
+    +name: String
+    +arnOrUri: String
+    +layer: String
+}
+
+class TargetType {
+    +code: String
+    +category: TargetCategory
+    +label: String
+    +description: String
+}
+
+class TargetedObservation {
+    +id: UUID
+    +openedAt: Timestamp
+    +closedAt: Timestamp
+    +status: TargetStatus
+    +severity: String
+}
+
+class DAREntry {
+    +id: UUID
+    +entryType: EntryType
+    +payload: JSON / String
+    +timestamp: Timestamp
+}
+
+class Agent {
+    +id: UUID
+    +name: String
+    +type: String
+}
+
+DataAsset "1" *-- "*" TargetedObservation : observes
+TargetedObservation "*" --> "1" TargetType : categorized_by
+TargetedObservation "1" *-- "1..*" DAREntry : contains
+DAREntry "*" --> "1" Agent : recorded_by
+
+@enduml

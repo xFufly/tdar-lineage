@@ -1,12 +1,26 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-\title{Data Governance via T-DAR Methodology}
-\author{Audit Framework}
+\usepackage[american]{babel}
+\usepackage{tikz}
+\usepackage{standalone}
+\title{Architecting for Action: \\ \large Data Lineage and Analysis via the T-DAR Framework}
+\author{Tim Didelot \\ \texttt{contact@timdidelot.fr}}
 \date{\today}
 
 \begin{document}
 \maketitle
 
 \section{Introduction}
-First compile of the document.
+In the era of Big Data, organizations have adopted a data-driven approach to decision-making. However, the complexity of data ecosystems often leads to challenges in understanding the flow and transformation of data. This paper introduces the T-DAR framework, which stands for Targeted Data-Actions-Results, as a methodology for analyzing data lineage and ensuring actionable insights.
+
+\section{T-DAR Framework Overview}
+The T-DAR framework is inspired by the Data-Action-Result (DAR) model of most healthcare information systems.
+\begin{figure}[htbp]
+    \makebox[\textwidth][c]{
+        \input{out/uml/tdar_architecture/tdar_architecture.latex}
+    }
+    \caption{T-DAR Architecture Overview}
+    \label{fig:tdar_architecture}
+\end{figure}
+
 \end{document}
