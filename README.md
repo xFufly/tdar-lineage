@@ -1,5 +1,7 @@
 # Architecting for Action: Data Lineage and Analysis via the T-DAR Framework
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22905116.svg)](https://doi.org/10.5281/zenodo.22905116)
+
 This repository contains the LaTeX source code, figures, and related diagrams for the paper introducing the **T-DAR (Targeted Data-Actions-Results)** framework. T-DAR is a methodology designed for analyzing data lineage and ensuring actionable insights within complex data ecosystems.
 
 While modern observability platforms excel at detecting anomalies, and lineage tools like OpenLineage build comprehensive dependency graphs, they often lack a native mechanism to track subsequent interventions. The T-DAR framework bridges this gap by providing an active, programmatic governance loop that links issues directly to the data ecosystem.
@@ -49,3 +51,18 @@ Note: Running the compilation command twice ensures that all internal citations 
 ## License
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](LICENSE).
+
+## How to Cite
+
+If you use this framework in your research, please cite:
+
+```bibtex
+@article{didelot2026tdar,
+  author       = {Didelot, Tim},
+  title        = {Architecting for Action: Data Lineage and Analysis via the T-DAR Framework},
+  year         = 2026,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.22905116},
+  url          = {https://doi.org/10.5281/zenodo.22905116}
+}
+```
